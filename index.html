@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spend Million Dollars</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .money-counter {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        
+        .btn-sell {
+            background-color: #e74c3c;
+        }
+        
+        .btn-sell:hover {
+            background-color: #c0392b;
+        }
+        
+        .receipt {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        .receipt-header {
+            color: #e74c3c;
+            font-size: 1.8rem;
+            font-weight: bold;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .receipt-item .name {
+            color: #000;
+            font-weight: 500;
+        }
+        
+        .receipt-item .quantity, 
+        .receipt-item .price {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .receipt-total {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .receipt-total .label {
+            color: #000;
+        }
+        
+        .receipt-total .amount {
+            color: #e74c3c;
+        }
+        
+        .receipt-remaining {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .receipt-remaining .label {
+            color: #000;
+        }
+        
+        .receipt-remaining .amount {
+            color: #e74c3c;
+        }
+        
+        .manual-item {
+            text-align: center;
+            padding: 20px;
+            margin: 30px 0;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            border: 2px solid #e74c3c;
+        }
+        
+        .manual-item-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto;
+            display: block;
+            border: 3px solid #e74c3c;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 pb-10">
+        <!-- Header with User Image -->
+        <div class="header">
+            <img src="https://page.genspark.site/v1/base64_upload/2c3c2c2797c71dc2cd6e5502f0a1f555" alt="Profile" class="profile-image">
+            <h1>Spend Million Dollars</h1>
+        </div>
+        
+        <!-- Money Counter -->
+        <div class="money-counter mb-6">
+            $<span id="money">100,000,000,000</span>
+        </div>
+        
+        <!-- Products Grid First Half -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="https://blog.sothebysrealty.co.uk/hubfs/The%20Best%20Luxury%20Ferraris%20Of%20All%20Time-jpg.jpeg" alt="Luxury Car" class="product-image">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold mb-2">Luxury Car</h3>
+                    <p class="text-gray-700 mb-4">$1,000,000</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn btn-buy" data-name="Luxury Car" data-price="1000000">Buy</button>
+                        <button class="btn btn-sell" data-name="Luxury Car" data-price="1000000" disabled>Sell</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="https://gate.shyaviation.com/media/d2cpi5um/what-are-the-most-luxurious-private-jetst-4800-2700px.jpg" alt="Private Jet" class="product-image">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold mb-2">Private Jet</h3>
+                    <p class="text-gray-700 mb-4">$1,000,000</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn btn-buy" data-name="Private Jet" data-price="1000000">Buy</button>
+                        <button class="btn btn-sell" data-name="Private Jet" data-price="1000000" disabled>Sell</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://jasonbarryteam.com/wp-content/uploads/2021/07/The-Bradbury-Estate-and-the-Rolls-Royce-Ghost-3-1024x613.jpg" alt="Luxury Mansion" class="product-image">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold mb-2">Luxury Mansion</h3>
+                    <p class="text-gray-700 mb-4">$1,000,000</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn btn-buy" data-name="Luxury Mansion" data-price="1000000">Buy</button>
+                        <button class="btn btn-sell" data-name="Luxury Mansion" data-price="1000000" disabled>Sell</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="https://www.bocadolobo.com/en/inspiration-and-ideas/wp-content/uploads/2020/12/The-Top-10-Luxury-Yachts-You-Need-to-Know-1400x933.png" alt="Luxury Yacht" class="product-image">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold mb-2">Luxury Yacht</h3>
+                    <p class="text-gray-700 mb-4">$1,000,000</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn btn-buy" data-name="Luxury Yacht" data-price="1000000">Buy</button>
+                        <button class="btn btn-sell" data-name="Luxury Yacht" data-price="1000000" disabled>Sell</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 5 -->
+            <div class="product-card">
+                <img src="https://na.rdcpix.com/49f876eee1d56056c8acd12319cc5b1bw-c1137581903srd_q80.jpg" alt="Private Island" class="product-image">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold mb-2">Private Island</h3>
+                    <p class="text-gray-700 mb-4">$1,000,000</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn btn-buy" data-name="Private Island" data-price="1000000">Buy</button>
+                        <button class="btn btn-sell" data-name="Private Island" data-price="1000000" disabled>Sell</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 6 -->
+            <div class="product-card">
+                <img src="https://img.freepik.com/premium-photo/diamond-jewelry-luxury-fashion-jewelry_550617-6761.jpg" alt="Diamond Jewelry" class="product-image">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold mb-2">Diamond Jewelry</h3>
+                    <p class="text-gray-700 mb-4">$1,000,000</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn btn-buy" data-name="Diamond Jewelry" data-price="1000000">Buy</button>
+                        <button class="btn btn-sell" data-name="Diamond Jewelry" data-price="1000000" disabled>Sell</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Manual Item Added Section -->
+        <div class="manual-item">
+            <div class="manual-item-text">Manual Item Added</div>
+        </div>
+        
+        <!-- Products Grid Second Half -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Product 7 -->
+            <div class="product-card">
+                <img src="https://hips.hearstapps.com/hmg-prod/images/2017-ferrari-laferrari-aperta-458a30e2-fea1-4a82-8084-9910066fb492-30516-scaled-1652154752.jpg" alt="Supercar" class="product-image">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold mb-2">Supercar</h3>
+                    <p class="text-gray-700 mb-4">$1,000,000</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn btn-buy" data-name="Supercar" data-price="1000000">Buy</button>
+                        <button class="btn btn-sell" data-name="Supercar" data-price="1000000" disabled>Sell</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 8 -->
+            <div class="product-card">
+                <img src="https://www.idesignarch.com/wp-content/uploads/Modern-Billionaire-Luxury-Home-924-Bel-Air-Road_2.jpg" alt="Penthouse" class="product-image">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold mb-2">Penthouse</h3>
+                    <p class="text-gray-700 mb-4">$1,000,000</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn btn-buy" data-name="Penthouse" data-price="1000000">Buy</button>
+                        <button class="btn btn-sell" data-name="Penthouse" data-price="1000000" disabled>Sell</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 9 -->
+            <div class="product-card">
+                <img src="https://media.architecturaldigest.com/photos/574854c6fd7713654620505e/4:3/w_2844,h_2133,c_limit/private-islands-03.jpg" alt="Tropical Island" class="product-image">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold mb-2">Tropical Island</h3>
+                    <p class="text-gray-700 mb-4">$1,000,000</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn btn-buy" data-name="Tropical Island" data-price="1000000">Buy</button>
+                        <button class="btn btn-sell" data-name="Tropical Island" data-price="1000000" disabled>Sell</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 10 -->
+            <div class="product-card">
+                <img src="https://i.ytimg.com/vi/YGt3gZXVWPw/mqdefault.jpg" alt="Mega Yacht" class="product-image">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold mb-2">Mega Yacht</h3>
+                    <p class="text-gray-700 mb-4">$1,000,000</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn btn-buy" data-name="Mega Yacht" data-price="1000000">Buy</button>
+                        <button class="btn btn-sell" data-name="Mega Yacht" data-price="1000000" disabled>Sell</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 11 -->
+            <div class="product-card">
+                <img src="https://elitetraveler.com/wp-content/uploads/sites/8/2020/11/shutterstock_1500547733-min-scaled.jpg" alt="Private Helicopter" class="product-image">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold mb-2">Private Helicopter</h3>
+                    <p class="text-gray-700 mb-4">$1,000,000</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn btn-buy" data-name="Private Helicopter" data-price="1000000">Buy</button>
+                        <button class="btn btn-sell" data-name="Private Helicopter" data-price="1000000" disabled>Sell</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 12 -->
+            <div class="product-card">
+                <img src="https://static.theceomagazine.net/wp-content/uploads/2022/12/05162332/private-islands-6.jpg" alt="Beach Resort" class="product-image">
+                <div class="p-4">
+                    <h3 class="text-xl font-semibold mb-2">Beach Resort</h3>
+                    <p class="text-gray-700 mb-4">$1,000,000</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn btn-buy" data-name="Beach Resort" data-price="1000000">Buy</button>
+                        <button class="btn btn-sell" data-name="Beach Resort" data-price="1000000" disabled>Sell</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Receipt Section -->
+        <div class="receipt" id="receipt-section">
+            <div class="receipt-header">Your Receipt</div>
+            <div id="receipt-items">
+                <!-- Receipt items will be added here dynamically -->
+            </div>
+            <div class="receipt-total">
+                <span class="label">Total Spent:</span>
+                <span class="amount">$<span id="total-spent">0</span></span>
+            </div>
+            <div class="receipt-remaining">
+                <span class="label">Remaining Balance:</span>
+                <span class="amount">$<span id="remaining-balance">100,000,000,000</span></span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const initialMoney = 100000000000;
+            let currentMoney = initialMoney;
+            const moneyDisplay = document.getElementById('money');
+            const receiptItems = document.getElementById('receipt-items');
+            const totalSpentDisplay = document.getElementById('total-spent');
+            const remainingBalanceDisplay = document.getElementById('remaining-balance');
+            
+            // Store purchased items
+            const purchases = {};
+            
+            // Format number with commas
+            function formatNumber(num) {
+                return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+            
+            // Update the money display
+            function updateMoneyDisplay() {
+                moneyDisplay.textContent = formatNumber(currentMoney);
+                remainingBalanceDisplay.textContent = formatNumber(currentMoney);
+                
+                let totalSpent = initialMoney - currentMoney;
+                totalSpentDisplay.textContent = formatNumber(totalSpent);
+            }
+            
+            // Update the receipt
+            function updateReceipt() {
+                // Clear current receipt items
+                receiptItems.innerHTML = '';
+                
+                // Add each purchased item to the receipt
+                for (const itemName in purchases) {
+                    if (purchases[itemName] > 0) {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'receipt-item';
+                        
+                        const nameSpan = document.createElement('span');
+                        nameSpan.className = 'name';
+                        nameSpan.textContent = itemName;
+                        
+                        const quantitySpan = document.createElement('span');
+                        quantitySpan.className = 'quantity';
+                        quantitySpan.textContent = 'x' + purchases[itemName];
+                        
+                        const priceSpan = document.createElement('span');
+                        priceSpan.className = 'price';
+                        const totalPrice = purchases[itemName] * 1000000;
+                        priceSpan.textContent = '$' + formatNumber(totalPrice);
+                        
+                        itemDiv.appendChild(nameSpan);
+                        itemDiv.appendChild(quantitySpan);
+                        itemDiv.appendChild(priceSpan);
+                        
+                        receiptItems.appendChild(itemDiv);
+                    }
+                }
+                
+                // If no items purchased yet, show a message
+                if (receiptItems.children.length === 0) {
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.className = 'text-gray-500 text-center py-4';
+                    emptyDiv.textContent = 'No items purchased yet';
+                    receiptItems.appendChild(emptyDiv);
+                }
+            }
+            
+            // Buy an item
+            function buyItem(name, price) {
+                if (currentMoney >= price) {
+                    currentMoney -= price;
+                    
+                    // Update purchases
+                    if (!purchases[name]) {
+                        purchases[name] = 0;
+                    }
+                    purchases[name]++;
+                    
+                    // Update displays
+                    updateMoneyDisplay();
+                    updateReceipt();
+                    
+                    // Enable the sell button for this item
+                    const sellButtons = document.querySelectorAll(`.btn-sell[data-name="${name}"]`);
+                    sellButtons.forEach(button => {
+                        button.disabled = false;
+                    });
+                } else {
+                    alert("You don't have enough money!");
+                }
+            }
+            
+            // Sell an item
+            function sellItem(name, price) {
+                if (purchases[name] && purchases[name] > 0) {
+                    currentMoney += price;
+                    purchases[name]--;
+                    
+                    // Update displays
+                    updateMoneyDisplay();
+                    updateReceipt();
+                    
+                    // Disable sell button if no more of this item
+                    if (purchases[name] === 0) {
+                        const sellButtons = document.querySelectorAll(`.btn-sell[data-name="${name}"]`);
+                        sellButtons.forEach(button => {
+                            button.disabled = true;
+                        });
+                    }
+                }
+            }
+            
+            // Add event listeners to buy buttons
+            const buyButtons = document.querySelectorAll('.btn-buy');
+            buyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const name = this.getAttribute('data-name');
+                    const price = parseInt(this.getAttribute('data-price'));
+                    buyItem(name, price);
+                });
+            });
+            
+            // Add event listeners to sell buttons
+            const sellButtons = document.querySelectorAll('.btn-sell');
+            sellButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const name = this.getAttribute('data-name');
+                    const price = parseInt(this.getAttribute('data-price'));
+                    sellItem(name, price);
+                });
+            });
+            
+            // Initialize
+            updateMoneyDisplay();
+            updateReceipt();
+        });
+    </script>
+</body>
+</html>
